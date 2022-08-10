@@ -1,0 +1,940 @@
+<app-navbar></app-navbar>
+<br />
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <!--search-->
+
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="serch input-group-text" id="inputGroup-sizing-sm">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      aria-label="Small"
+      id="search"
+      placeholder="buscar un registro..."
+    />
+  </div>
+  <!--search-->
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link active"
+      id="home-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#home"
+      type="button"
+      role="tab"
+      aria-controls="home"
+      aria-selected="true"
+    >
+      En proceso
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#profile"
+      type="button"
+      role="tab"
+      aria-controls="profile"
+      aria-selected="false"
+    >
+      Rechazadas
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="contact-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#contact"
+      type="button"
+      role="tab"
+      aria-controls="contact"
+      aria-selected="false"
+    >
+      Terminadas
+    </button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div
+    class="tab-pane fade show active"
+    id="home"
+    role="tabpanel"
+    aria-labelledby="home-tab"
+  >
+    <!--inicia-->
+
+    <br />
+
+    <!--tabla nueva-->
+
+    <div class="container">
+      <div class="table-responsive">
+        <table
+          class="table table-condensed table-bordered table-hover"
+          id="tblDatos"
+          align="center"
+          border="1"
+          style="width: auto; height: 20px;"
+        >
+          <thead>
+            <tr class="table-info" align="center">
+              <th class="id">#</th>
+              <th class="cabezaras">Solicitante</th>
+              <th class="cabezaras">Área</th>
+              <th class="cabezaras">Fecha Solicitud</th>
+              <th class="cabezaras">Motivo Salida</th>
+              <th class="cabezaras">Descripción</th>
+              <th class="cabezaras">Observaciones</th>
+              <th class="cabezaras">Proveedor</th>
+              <th class="cabezaras">Tipo de ticket</th>
+              <th class="cabezaras">¿El artículo regresa?</th>
+              <th class="cabezaras">Autorizador</th>
+              <th class="cabezaras">Estatus de aprobación</th>
+
+              <th class="cabezaras">Fecha de salida</th>
+              <th class="cabezaras">Fecha de Regreso</th>
+              <th class="cabezaras">Comentarios Almacén</th>
+              <th class="cabezaras">Fecha compromiso</th>
+              <th class="cabezaras">Status</th>
+              <th class="cabezaras">Comentarios compras</th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-truck-fast"></i>
+              </th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of datatableProceso"
+              style="width: 100%;"
+              align="center"
+            >
+              <td class="id">{{ item.id_solicitud }}</td>
+              <td>{{ item.solicitante }}</td>
+              <td>{{ item.area }}</td>
+              <td>{{ item.fechaSolicitud }}</td>
+              <td>{{ item.motivo }}</td>
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.observaciones }}</td>
+              <td>{{ item.provedor }}</td>
+              <td>{{ item.tipoTicket }}</td>
+              <td>{{ item.regresa }}</td>
+              <td>{{ item.autorizador }}</td>
+              <td>{{ item.statusAprobacion }}</td>
+              <td>{{ item.fechaSalida }}</td>
+              <td>{{ item.fechaRegreso }}</td>
+              <td>{{ item.comentariosRegreso }}</td>
+              <td>{{ item.fechaCompromiso }}</td>
+              <div *ngIf="item.status2==='En reparación con' then sisisi else sinono"></div>
+              <ng-template #sisisi><td>{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+              <ng-template #sinono><td>{{ item.status2 }}</td></ng-template>
+              <td>{{ item.comentariosCompras }}</td>
+              
+              <div
+                *ngIf="item.statusAprobacion === ''; then sisi; else sino"
+              ></div>
+              <ng-template #sisi>
+                <td>
+                  <button
+                    disabled
+                    (click)="onSetData(item); openModal(template)"
+                    class="btn btn-primary btn-sm"
+                  >
+                    salida
+                  </button>
+                </td>
+                <td>
+                  <button
+                    (click)="onSetDataRegreso(item); openModal1(template1)"
+                    class="btn btn-primary btn-sm"
+                    disabled
+                  >
+                    regreso
+                  </button>
+                </td>
+              </ng-template>
+
+              <ng-template #sino>
+                <div
+                  *ngIf="item.status2 === 'Autorizado'; then siva; else nova"
+                ></div>
+                <ng-template #siva>
+                  <td>
+                    <button
+                      (click)="onSetData(item); openModal(template)"
+                      class="btn btn-primary btn-sm"
+                    >
+                      salida
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      (click)="onSetDataRegreso(item); openModal1(template1)"
+                      class="btn btn-primary btn-sm"
+                      disabled
+                    >
+                      regreso
+                    </button>
+                  </td>
+                </ng-template>
+                <ng-template #nova>
+                  <div
+                    *ngIf="
+                      item.status2 === 'En reparación con';
+                      then sir;
+                      else nor
+                    "
+                  ></div>
+                  <ng-template #sir>
+                    <div
+                      *ngIf="
+                        item.validarSalida === 'true2';
+                        then sir1;
+                        else nor1
+                      "
+                    ></div>
+                    <ng-template #sir1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                    <ng-template #nor1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                  <ng-template #nor>
+                    <div
+                      *ngIf="item.status2 === 'Recibido en almacén'; then sire"
+                    ></div>
+                    <ng-template #sire>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div id="paginador"></div> -->
+    </div>
+
+    <!--tabla nueva-->
+
+    <!--inicia-->
+  </div>
+  <div
+    class="tab-pane fade"
+    id="profile"
+    role="tabpanel"
+    aria-labelledby="profile-tab"
+  >
+    <!--inicia-->
+
+    <br />
+
+    <!--tabla nueva-->
+
+    <div class="container">
+      <div class="table-responsive">
+        <table
+          class="table table-condensed table-bordered table-hover"
+          id="tblDatos"
+          align="center"
+          border="1"
+          style="width: auto; height: 20px;"
+        >
+          <thead>
+            <tr class="table-info" align="center">
+              <th class="id">#</th>
+              <th class="cabezaras">Solicitante</th>
+              <th class="cabezaras">Área</th>
+              <th class="cabezaras">Fecha Solicitud</th>
+              <th class="cabezaras">Motivo Salida</th>
+              <th class="cabezaras">Descripción</th>
+              <th class="cabezaras">Observaciones</th>
+              <th class="cabezaras">Proveedor</th>
+              <th class="cabezaras">Tipo de ticket</th>
+              <th class="cabezaras">¿El artículo regresa?</th>
+              <th class="cabezaras">Autorizador</th>
+              <th class="cabezaras">Estatus de aprobación</th>
+
+              <th class="cabezaras">Fecha de salida</th>
+              <th class="cabezaras">Fecha de Regreso</th>
+              <th class="cabezaras">Comentarios Almacén</th>
+              <th class="cabezaras">Fecha compromiso</th>
+              <th class="cabezaras">Status</th>
+              <th class="cabezaras">Comentarios compras</th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-truck-fast"></i>
+              </th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of datatablerechazadas"
+              style="width: 100%;"
+              align="center"
+            >
+              <td class="id">{{ item.id_solicitud }}</td>
+              <td>{{ item.solicitante }}</td>
+              <td>{{ item.area }}</td>
+              <td>{{ item.fechaSolicitud }}</td>
+              <td>{{ item.motivo }}</td>
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.observaciones }}</td>
+              <td>{{ item.provedor }}</td>
+              <td>{{ item.tipoTicket }}</td>
+              <td>{{ item.regresa }}</td>
+              <td>{{ item.autorizador }}</td>
+              <td>{{ item.statusAprobacion }}</td>
+              <td>{{ item.fechaSalida }}</td>
+              <td>{{ item.fechaRegreso }}</td>
+              <td>{{ item.comentariosRegreso }}</td>
+              <td>{{ item.fechaCompromiso }}</td>
+              <div *ngIf="item.status2==='En reparación con' then sisin else sinon"></div>
+              <ng-template #sisin><td>{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+              <ng-template #sinon><td>{{ item.status2 }}</td></ng-template>
+              <td>{{ item.comentariosCompras }}</td>
+              
+              <div
+                *ngIf="item.statusAprobacion === ''; then sisi; else sino"
+              ></div>
+              <ng-template #sisi>
+                <td>
+                  <button
+                    disabled
+                    (click)="onSetData(item); openModal(template)"
+                    class="btn btn-primary btn-sm"
+                  >
+                    salida
+                  </button>
+                </td>
+                <td>
+                  <button
+                    (click)="onSetDataRegreso(item); openModal1(template1)"
+                    class="btn btn-primary btn-sm"
+                    disabled
+                  >
+                    regreso
+                  </button>
+                </td>
+              </ng-template>
+
+              <ng-template #sino>
+                <div
+                  *ngIf="item.status2 === 'Autorizado'; then siva; else nova"
+                ></div>
+                <ng-template #siva>
+                  <td>
+                    <button
+                      (click)="onSetData(item); openModal(template)"
+                      class="btn btn-primary btn-sm"
+                    >
+                      salida
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      (click)="onSetDataRegreso(item); openModal1(template1)"
+                      class="btn btn-primary btn-sm"
+                      disabled
+                    >
+                      regreso
+                    </button>
+                  </td>
+                </ng-template>
+                <ng-template #nova>
+                  <div
+                    *ngIf="
+                      item.status2 === 'En reparación con';
+                      then sir;
+                      else nor
+                    "
+                  ></div>
+                  <ng-template #sir>
+                    <div
+                      *ngIf="
+                        item.validarSalida === 'true2';
+                        then sir1;
+                        else nor1
+                      "
+                    ></div>
+                    <ng-template #sir1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                    <ng-template #nor1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                  <ng-template #nor>
+                    <div
+                      *ngIf="item.status2 === 'Recibido en almacén'; then sire"
+                    ></div>
+                    <ng-template #sire>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-primary btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-primary btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div id="paginador"></div> -->
+    </div>
+
+    <!--tabla nueva-->
+
+    <!--inicia-->
+  </div>
+
+  <div
+    class="tab-pane fade"
+    id="contact"
+    role="tabpanel"
+    aria-labelledby="contact-tab"
+  >
+    <!--inicia-->
+
+    <br />
+
+    <!--tabla nueva-->
+
+    <div class="container">
+      <div class="table-responsive">
+        <table
+          class="table table-condensed table-bordered table-hover"
+          id="tblDatos"
+          align="center"
+          border="1"
+          style="width: auto; height: 20px;"
+        >
+          <thead>
+            <tr class="table-info" align="center">
+              <th class="id">#</th>
+              <th class="cabezaras">Solicitante</th>
+              <th class="cabezaras">Área</th>
+              <th class="cabezaras">Fecha Solicitud</th>
+              <th class="cabezaras">Motivo Salida</th>
+              <th class="cabezaras">Descripción</th>
+              <th class="cabezaras">Observaciones</th>
+              <th class="cabezaras">Proveedor</th>
+              <th class="cabezaras">Tipo de ticket</th>
+              <th class="cabezaras">¿El artículo regresa?</th>
+              <th class="cabezaras">Autorizador</th>
+              <th class="cabezaras">Estatus de aprobación</th>
+
+              <th class="cabezaras">Fecha de salida</th>
+              <th class="cabezaras">Fecha de Regreso</th>
+              <th class="cabezaras">Comentarios Almacén</th>
+              <th class="cabezaras">Fecha compromiso</th>
+              <th class="cabezaras">Status</th>
+              <th class="cabezaras">Comentarios compras</th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-truck-fast"></i>
+              </th>
+              <th class="cabezaras" style="text-align: center;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of datatableterminadas"
+              style="width: 100%;"
+              align="center"
+            >
+              <td class="id">{{ item.id_solicitud }}</td>
+              <td>{{ item.solicitante }}</td>
+              <td>{{ item.area }}</td>
+              <td>{{ item.fechaSolicitud }}</td>
+              <td>{{ item.motivo }}</td>
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.observaciones }}</td>
+              <td>{{ item.provedor }}</td>
+              <td>{{ item.tipoTicket }}</td>
+              <td>{{ item.regresa }}</td>
+              <td>{{ item.autorizador }}</td>
+              <td>{{ item.statusAprobacion }}</td>
+              <td>{{ item.fechaSalida }}</td>
+              <td>{{ item.fechaRegreso }}</td>
+              <td>{{ item.comentariosRegreso }}</td>
+              <td>{{ item.fechaCompromiso }}</td>
+             
+              <div *ngIf="item.status2==='En reparación con' then sisins else sinons"></div>
+              <ng-template #sisins><td>{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+              <ng-template #sinons><td>{{ item.status2 }}</td></ng-template>
+              <td>{{ item.comentariosCompras }}</td>
+
+              <div
+                *ngIf="item.statusAprobacion === ''; then sisi; else sino"
+              ></div>
+              <ng-template #sisi>
+                <td>
+                  <button
+                    disabled
+                    (click)="onSetData(item); openModal(template)"
+                    class="btn btn-success btn-sm"
+                  >
+                    salida
+                  </button>
+                </td>
+                <td>
+                  <button
+                    (click)="onSetDataRegreso(item); openModal1(template1)"
+                    class="btn btn-success btn-sm"
+                    disabled
+                  >
+                    regreso
+                  </button>
+                </td>
+              </ng-template>
+
+              <ng-template #sino>
+                <div
+                  *ngIf="item.status2 === 'Autorizado'; then siva; else nova"
+                ></div>
+                <ng-template #siva>
+                  <td>
+                    <button
+                      (click)="onSetData(item); openModal(template)"
+                      class="btn btn-success btn-sm"
+                    >
+                      salida
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      (click)="onSetDataRegreso(item); openModal1(template1)"
+                      class="btn btn-success btn-sm"
+                      disabled
+                    >
+                      regreso
+                    </button>
+                  </td>
+                </ng-template>
+                <ng-template #nova>
+                  <div
+                    *ngIf="
+                      item.status2 === 'En reparación con';
+                      then sir;
+                      else nor
+                    "
+                  ></div>
+                  <ng-template #sir><!--1uno-->
+                    <div
+                      *ngIf="
+                        item.validarSalida === 'true2';
+                        then sir1;
+                        else nor1
+                      "
+                    ></div>
+                    <ng-template #sir1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-success btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                        disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-success btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                    <ng-template #nor1>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-success btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                            onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-success btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                  <ng-template #nor>
+                    <div
+                      *ngIf="item.status2 === 'Recibido en almacén'; then sire"
+                    ></div>
+                    <ng-template #sire>
+                      <td>
+                        <button
+                          disabled
+                          (click)="onSetData(item); openModal(template)"
+                          class="btn btn-success btn-sm"
+                        >
+                          salida
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          disabled
+                          (click)="
+                          onSetDataRegreso(item); openModal1(template1)
+                          "
+                          class="btn btn-success btn-sm"
+                        >
+                          regreso
+                        </button>
+                      </td>
+                    </ng-template>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div id="paginador"></div> -->
+    </div>
+
+    <!--tabla nueva-->
+
+    <!--inicia-->
+  </div>
+
+  <!--modales-->
+  <!--modal para  salida de activo-->
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Salida de activo</h4>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!--inicio-->
+    <div class="row-6 mt-5">
+      <div class="input-group mb-3 input-group-lg">
+        <span class="input-group-text" id="basic-addon1">Núm. solicitud:</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="id"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="id"
+          id="txtid"
+          [(ngModel)]="solicitud.id_solicitud"
+          disabled="disabled"
+        />
+      </div>
+
+      <div class="input-group mb-3 input-group-lg">
+        <span class="input-group-text" id="basic-addon1">Fecha de salida:</span>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Fecha de salida"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="FechaSolicitud"
+          id="txtFecha"
+          [(ngModel)]="solicitud.fechaSalida"
+        />
+      </div>
+
+      <div class="input-group mb-3 input-group-lg">
+        <span class="input-group-text" id="basic-addon1">
+          Nombre del Proveedor (recibe):
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre del proveedor (recibe articulos en almacén)"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="NombreProvedor"
+          id="txtProname"
+          [(ngModel)]="solicitud.nombreProvedor"
+        />
+      </div>
+    </div>
+<div *ngIf="solicitud.fechaSalida==='' || solicitud.nombreProvedor==='' then sisi else sino"> </div>
+  <ng-template #sisi>
+    <div class="d-grid gap-2">
+      <button
+      disabled
+        type="button"
+        class="btn btn-primary"
+        (click)="
+          saveSomeThing(); onUpdateSalida(solicitud); 
+        "
+      >
+        Guardar Cambios
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #sino>
+    <div class="d-grid gap-2">
+      <button
+      
+        type="button"
+        class="btn btn-primary"
+        (click)="
+          saveSomeThing(); onUpdateSalida(solicitud); 
+        "
+      >
+        Guardar Cambios
+      </button>
+    </div>
+  </ng-template>
+   
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->
+
+
+
+
+
+  <!--modal para  regreso de activo-->
+  <ng-template #template1>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Regreso de activo</h4>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef1.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!--inicio-->
+    <div class="row-6 mt-5">
+      <div class="input-group mb-3 input-group-lg">
+        <span class="input-group-text" id="basic-addon1">Núm. solicitud:</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="id"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="id"
+          id="txtid"
+          [(ngModel)]="solicitud.id_solicitud"
+          disabled="disabled"
+        />
+      </div>
+
+      <div class="input-group mb-3 input-group-lg">
+        <span class="input-group-text" id="basic-addon1">
+          Fecha de Regreso:
+        </span>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Fecha de regreso"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          id="txtFecha"
+          [(ngModel)]="solicitud.fechaRegreso"
+        />
+      </div>
+
+      <div class="input-group-lg">
+        <br />
+
+        <span>Comentarios:</span>
+        <textarea
+          type="text"
+          class="form-control"
+          placeholder="Comentarios"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="id"
+          id="txtFS"
+          [(ngModel)]="solicitud.comentariosRegreso"
+        ></textarea>
+      </div>
+      <br />
+    </div>
+    <div *ngIf="solicitud.fechaRegreso===''; then sisir else sinor"></div>
+    <ng-template #sisir>
+      <div class="d-grid gap-2">
+        <button
+        disabled
+          type="button"
+          class="btn btn-primary"
+          (click)="
+          saveSomeThing1();
+            onUpdateActivoR(solicitud);
+          "
+        >
+          Guardar Cambios
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #sinor>
+      <div class="d-grid gap-2">
+        <button
+        
+          type="button"
+          class="btn btn-primary"
+          (click)="
+          saveSomeThing1();
+            onUpdateActivoR(solicitud);
+          "
+        >
+          Guardar Cambios
+        </button>
+      </div>
+    </ng-template>
+   
+   
+    <!--fin-->
+  </ng-template>
+  <!--fin modales-->
+
+  <!--modal para  regreso de activo-->
+</div>

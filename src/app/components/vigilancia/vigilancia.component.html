@@ -1,0 +1,273 @@
+<app-navbar></app-navbar>
+<br />
+
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+<!--search-->
+
+<div class="input-group input-group-sm mb-3">
+  <div class="input-group-prepend">
+    <span class="serch input-group-text" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+  </div>
+  <input type="text" class=" form-control" aria-label="Small" id="search" placeholder="buscar un registro...">
+</div>
+<!--search-->
+  <li class="nav-item" role="presentation">
+  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Por salir</button>
+  </li>
+  <li class="nav-item" role="presentation">
+  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Por regresar</button>
+  </li>
+
+  </ul>
+  <div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <br>
+    <!--inicia-->
+<div class="container">
+  
+  <div class="table-responsive">
+    <table class="table" id="tblDatos">
+      <thead>
+        <tr>
+          <th  class="id">#</th>
+          
+         <th  class="cabezaras">Detalles</th>
+         <th  class="cabezaras"></th>
+          <th  class="cabezaras" style="text-align:center;"><i class="fas fa-check-square"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datatable" style="width: 100%;">
+        <td class="id">{{ item.id_solicitud }}</td>
+         <!-- <td>{{ item.solicitante }}</td>--> 
+         
+           <td>
+            <div class="tarjeta">
+              <p>Los articulos; 
+                <b>{{item.descripcion}},</b> han sido entregados a <b> {{ item.nombreProvedor}}</b> el día <b>{{item.fechaSalida}}</b> con motivo de <b>{{item.motivo}}</b>. </p>
+           
+            </div>
+         
+    
+    
+    
+           </td>
+           <!-- <td>{{ item.motivo }}</td></td>--> 
+           <!--  <td>{{ item.descripcion }}</td>--> 
+        
+         <!--  <td>{{ item.autorizador }}</td>--> 
+          
+          
+          <div
+            *ngIf="item.validarSalida !== ''; then thenBlock; else elseBlock"
+          ></div>
+          
+          <ng-template #thenBlock>
+            <td> <button type="button" class="btn btn-primary btn-circle" routerLink="/general/verInfo/{{item.id_solicitud}}"><i class="fa-solid fa-info"></i>
+            </button></td>
+            <td>
+              
+              <button
+                type="bu"
+                class="btn btn-success btn-sm"
+                (click)="onSetData1(item); onUpdateSalida(solicitud)"
+                disabled
+              >
+               Confirmar salida
+              </button>
+            </td>
+          </ng-template>
+          <ng-template #elseBlock>
+            <div
+            *ngIf="item.status2 === 'En reparación con'; then sale else nosale"
+          ></div>
+           <ng-template #sale>
+            <td> <button type="button" class="btn btn-primary btn-circle" routerLink="/general/verInfo/{{item.id_solicitud}}"><i class="fa-solid fa-info"></i>
+            </button></td>
+            <td>
+             
+              <button
+              
+                type="bu"
+                class="btn btn-success btn-sm"
+                (click)="onSetData1(item);  openModal12(template1);"
+                
+              >
+              Confirmar salida
+              </button>
+            </td>
+           </ng-template>
+           <ng-template #nosale>
+            <td> <button type="button" class="btn btn-primary btn-circle" routerLink="/general/verInfo/{{item.id_solicitud}}"><i class="fa-solid fa-info"></i>
+            </button></td>
+            <td>
+              <button
+              disabled
+                type="bu"
+                class="btn btn-success btn-sm"
+                (click)="onSetData1(item); openModal12(template1);"
+                
+              >
+              Confirmar salida
+              </button>
+            </td>
+           </ng-template>
+            
+          </ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>    <!--inicia-->
+
+
+<!--tabla nueva-->
+
+    </div>
+    <!--2-->
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+    <br>
+    <!--inicia-->
+<div class="container">
+  
+  <div class="table-responsive">
+    <table class="table" id="tblDatos">
+      <thead>
+        <tr>
+          <th  class="id">#</th>
+          
+         <th  class="cabezaras">Detalles</th>
+         <th class="cabezaras" > </th>
+          <th  class="cabezaras" style="text-align:center;"><i class="fas fa-check-square"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datatableRegre" style="width: 100%;">
+        <td class="id">{{ item.id_solicitud }}</td>
+         <!-- <td>{{ item.solicitante }}</td>--> 
+         
+           <td>
+            <div class="tarjeta">
+              <p>Los articulos; 
+                <b>{{item.descripcion}},</b> entregados a <b> {{ item.nombreProvedor}}</b> el día <b>{{item.fechaSalida}}</b> con motivo de <b>{{item.motivo}} </b> requieren ser validados. </p>
+           
+            </div>
+         
+    
+    
+    
+           </td>
+       
+         <td> <button type="button" routerLink="/general/verInfo/{{item.id_solicitud}}" class="btn btn-primary btn-circle"><i class="fa-solid fa-info"></i>
+         </button></td>
+            <td>
+             
+              <button
+                type="bu"
+                class="btn btn-primary btn-sm"
+                (click)="onSetData3(item);  openModal(template);"
+              
+              >
+               Confirmar regreso
+              </button>
+            </td>
+            
+        
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</div>    <!--inicia-->
+<!--tabla nueva-->
+  </div>
+  </div>
+<!--viejo-->
+<!--tabla nueva-->
+<div class="container">
+  <div class="table-responsive">
+  </div>
+</div> 
+
+
+<!--tabla nueva-->
+
+
+
+
+
+
+  <!--modales-->
+  <!--modal para  salida de activo-->
+  <ng-template class="wrapper bg-white" #template>
+    <div class="modal-header">
+      <div class="h6 text-muted text-center pt-2"><i class="fa-solid fa-triangle-exclamation triangle"></i> Confirmar regreso: ¿Seguro de realizar esta acción?.</div>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <br>
+  
+   
+      <h5 [(ngModel)]="solicitud.id_solicitud" class="text-center ">Solicitud: {{solicitud.id_solicitud}}</h5>
+     
+    <!--inicio-->
+    <p style="color:red ;" class="text-center ">Los detalles de este articulo serán quitados de la lista.</p>
+   <!-- <div class="h2 text-center">Creativity</div>-->
+      
+     
+            
+           <button class="btn btn-primary" (click)="onUpdateSalida(solicitud); saveSomeThing() ">Confirmar</button>
+          
+ <br>
+  
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->
+
+
+
+
+
+  
+
+  <!--modales-->
+  <!--modal para  salida de activo-->
+  <ng-template class="wrapper bg-white" #template1>
+    <div class="modal-header">
+      <div class="h6 text-muted text-center pt-2"><i class="fa-solid fa-triangle-exclamation triangle"></i> Confirmar salida: ¿Seguro de realizar esta acción?</div>
+      <button
+        type="button"
+        class="close pull-rigth"
+        aria-label="Close"
+        (click)="bsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <br>
+  
+   
+      <h5 [(ngModel)]="solicitud.id_solicitud" class="text-center ">Solicitud: {{solicitud.id_solicitud}}</h5>
+     
+    <!--inicio-->
+    <p style="color:red ;" class="text-center ">Los detalles de este articulo serán quitados de la lista</p>
+   <!-- <div class="h2 text-center">Creativity</div>-->
+      
+     
+            
+           <button class="btn btn-primary" (click)="onUpdateSalida(solicitud); saveSomeThing() ">Confirmar</button>
+          
+ <br>
+  
+    <!--fin-->
+  </ng-template>
+  <!--modal para  salida de activo-->

@@ -1,0 +1,71 @@
+<div class="v2">
+  <div class="v1 navega card-header">
+    <a class="" href="#">
+      <img src="./assets/bioflex.png" style="height: 50px;" />
+    </a>
+  </div>
+  <br>
+<!--search-->
+
+<div class="input-group input-group-sm mb-3">
+  <div class="input-group-prepend">
+    <span class="serch input-group-text" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+  </div>
+  <input type="text" class=" form-control" aria-label="Small" id="search" placeholder="buscar un registro...">
+</div>
+<!--search-->
+<table class="table" id="tblDatos"   border="1" style="font-size: small;" >
+  <thead class="table-dark">
+    <tr  align="center">
+      <th class="id">#</th>
+      <th>Solicitante</th>
+      <th>Fecha de solicitud</th>
+      <th>Estatus</th>
+      <th>Ticket</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of datatable"  align="center" style="width: 100%;">
+      <td class="id">{{item.id_solicitud}}</td>
+                  <div *ngIf="item.status2==='No se autorizo' then sisi else sino"></div>
+                 
+                  <ng-template #sisi>
+                    <td class="noA">{{item.solicitante}}</td>
+      <td class="noA">{{item.fechaSolicitud}}</td>
+      <div *ngIf="item.status2==='En reparación con' then sisisi else sinono"></div>
+              <ng-template #sisisi><td class="noA">{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+              <ng-template #sinono><td class="noA">{{ item.status2 }}</td></ng-template>
+
+      <td class="noA"><a type="button" class="nav-link active links"  routerLink="verInfo/{{item.id_solicitud}}" >Mostrar datos</a></td>
+                  </ng-template>
+
+                  <ng-template #sino>
+                    <div *ngIf="item.status2==='Recibido en almacén'then sisisi else nonono"></div>
+                    <ng-template #sisisi>
+                      <td class="recAlm">{{item.solicitante}}</td>
+                      <td class="recAlm">{{item.fechaSolicitud}}</td>
+                      <div *ngIf="item.status2==='En reparación con' then sipi else nopi"></div>
+              <ng-template #sipi><td class="recAlm">{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+              <ng-template #nopi><td class="recAlm">{{ item.status2 }}</td></ng-template>
+                      <td class="recAlm"><a type="button" class="nav-link active links"  routerLink="verInfo/{{item.id_solicitud}}" >Mostrar datos</a></td>
+                    
+                    </ng-template>
+                    <ng-template #nonono>
+                      <td class="recon">{{item.solicitante}}</td>
+                      <td class="recon">{{item.fechaSolicitud}}</td>
+                      <div *ngIf="item.status2==='En reparación con' then sip else nop"></div>
+                      <ng-template #sip><td class="recon">{{ item.status2 }}: {{item.provedor}}</td></ng-template>
+                      <ng-template #nop><td class="recon">{{ item.status2 }}</td></ng-template>
+                      <td class="recon"><a type="button" class="nav-link active links"  routerLink="verInfo/{{item.id_solicitud}}" >Mostrar datos</a></td>
+                    
+                    </ng-template>
+                    
+                              
+                  </ng-template>
+                  
+      
+      
+    </tr>   
+  </tbody>
+ 
+</table>

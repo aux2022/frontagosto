@@ -1,0 +1,252 @@
+<div class="navega card-header">
+  <h5 class="text-center">Datos de la Solicitud</h5>
+</div>
+<html>
+  <body>
+    <div class="card text-center">
+      <div class="card-body" *ngFor="let item of datatable">
+        <!--aqui-->
+
+        <hr />
+        <p class="card-text">
+          No. Solicitud:
+          <b>{{ item.id_solicitud }}</b>
+        </p>
+        <p class="card-text">
+          Solicitante
+          <b>{{ item.solicitante }}</b>
+        </p>
+        <p class="card-text">
+          Fecha Solicitud:
+          <b>{{ item.fechaSolicitud }}</b>
+        </p>
+        <p class="card-text">
+          Proveedor:
+          <b>{{ item.provedor }}</b>
+        </p>
+        <p class="card-text">
+          Motivo Salida:
+          <b>{{ item.motivo }}</b>
+        </p>
+        <p class="card-text">
+          Area:
+          <b>{{ item.area }}</b>
+        </p>
+        <p class="card-text">
+          Descripción:
+          <b>{{ item.descripcion }}</b>
+        </p>
+        <p class="card-text">
+          Observaciones:
+          <b>{{ item.observaciones }}</b>
+        </p>
+        
+        
+
+        <!--  
+      <p><b class="formataAprove">{{item.statusAprobacion}}</b></p> -->
+        <div
+          *ngIf="item.statusAprobacion === 'Aprobada'; then todo; else nada"
+        ></div>
+        <ng-template #todo>
+          <img
+            src="./assets/aprovado.jpg"
+            style="width: 95px; height: 95px; border-radius: 2cm;"
+          />
+        </ng-template>
+        <ng-template #nada>
+          <div
+            *ngIf="
+              item.statusAprobacion === 'Rechazada';
+              then vaciar;
+              else llenar
+            "
+          ></div>
+          <ng-template #vaciar>
+            <img
+              src="./assets/rechazado.jpg"
+              style="width: 95px; height: 95px; border-radius: 2cm;"
+            />
+          </ng-template>
+          <ng-template #llenar>
+            <img style="width: 95px; height: 95px; border-radius: 2cm;" />
+          </ng-template>
+        </ng-template>
+        <hr />
+
+        <div
+          *ngIf="item.statusAprobacion !== ''; then thenBlock; else elseBlock"
+        ></div>
+        <ng-template #thenBlock>
+          <button
+            type="button"
+            id="aprobado"
+            class="btn btn-primary"
+            value="false"
+            (click)="onSetData1(item); onUpdateSalida(solicitud)"
+            disabled
+          >
+            Aprobar Solicitud
+          </button>
+          &nbsp;&nbsp;
+          <button
+            type="button"
+            id="rechazado"
+            (click)="onSetData2(item); onUpdateSalida(solicitud)"
+            class="btn btn-danger"
+            disabled
+          >
+            Rechazar Solicitud
+          </button>
+        </ng-template>
+        <ng-template #elseBlock>
+          <button
+            type="button"
+            id="aprobado"
+            class="btn btn-primary"
+            value="false"
+            (click)="openModal2(template2);  onSetData1(item) "
+          >
+            Aprobar Solicitud
+          </button>
+          &nbsp;&nbsp;
+          <button
+            type="button"
+            id="rechazado"
+            (click)="openModal(template); onSetData2(item);"
+            class="btn btn-danger"
+          >
+            Rechazar Solicitud
+          </button>
+        </ng-template>
+        <br />
+      </div>
+      <!--aqui-->
+      <div></div>
+    </div>
+
+    <!--modal para  salida de activo-->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Rechazar solicitud</h4>
+    <button
+      type="button"
+      class="close pull-rigth"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--inicio-->
+  <div class="row-6 mt-5">
+    <div class="input-group mb-3 input-group-lg">
+      <span class="input-group-text" id="basic-addon1">Núm. solicitud:</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="id"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        name="id"
+        id="txtid"
+        [(ngModel)]="solicitud.id_solicitud"
+        disabled="disabled"
+      />
+    </div>
+
+
+    <div class="input-group mb-3 input-group-lg">
+      <span class="input-group-text" id="basic-addon1">
+        Comentarios:
+      </span>
+      <textarea
+        type="text"
+        class="form-control"
+        placeholder="Motivo"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        name="NombreProvedor"
+        id="txtMotivo"
+        [(ngModel)]="solicitud.comentariosAutorizador"
+      required="required"></textarea>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="onUpdateSalida(solicitud)"
+    >
+      Rechazar
+    </button>
+  </div>
+  <!--fin-->
+</ng-template>
+<!--modal para  salida de activo-->
+
+<!--opcionales-->
+
+<ng-template #template2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aprobar solicitud</h4>
+    <button
+      type="button"
+      class="close pull-rigth"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--inicio-->
+  <div class="row-6 mt-5">
+    <div class="input-group mb-3 input-group-lg">
+      <span class="input-group-text" id="basic-addon1">Núm. solicitud:</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="id"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        name="id"
+        id="txtid"
+        [(ngModel)]="solicitud.id_solicitud"
+        disabled="disabled"
+      />
+    </div>
+
+
+    <div class="input-group mb-3 input-group-lg">
+      <span class="input-group-text" id="basic-addon1">
+        Comentarios:
+      </span>
+      <textarea
+        type="text"
+        class="form-control"
+        placeholder="Comentarios(opcional)"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        name="NombreProvedor"
+        id="txtMotivo1"
+        [(ngModel)]="solicitud.comentariosAutorizador"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="onUpdateSalida1(solicitud)"
+    >
+      Aprobar
+    </button>
+  </div>
+  <!--fin-->
+</ng-template>
+
+
+</body>
+</html>

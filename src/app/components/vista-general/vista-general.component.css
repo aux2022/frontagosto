@@ -1,0 +1,130 @@
+
+.v1 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  z-index: 1101;
+  background-color: #212529;
+}
+.v2 {
+  background-color: #ffffffea;
+}
+.sticky-container {
+  padding: 0px;
+  margin: 0px;
+  position: fixed;
+  right: -130px;
+  top: 230px;
+  width: 210px;
+  z-index: 1100;
+}
+.sticky li {
+  list-style-type: none;
+  background-color: rgba(194, 194, 194, 0);
+  color: #2f00ff;
+  height: 60px;
+  padding: 0px;
+  margin: 0px 0px 1px 0px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+.sticky li:hover {
+  margin-left: -125px;
+}
+.sticky li img {
+  float: left;
+  margin: 5px 4px;
+  margin-right: 5px;
+}
+.sticky li p {
+  padding-top: 5px;
+  margin: 0px;
+  line-height: 16px;
+  font-size: 11px;
+}
+.sticky li p a {
+  text-decoration: none;
+  color: #2c3539;
+}
+.sticky li p a:hover {
+  text-decoration: underline;
+}
+.ico{
+  z-index: 0;
+}
+.f1 {
+  z-index: 0;
+}
+.f1:hover {
+  z-index: 0;
+}
+.btnenvia{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.despliegue{
+  content: "▽";
+}
+
+  
+  h2 {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  table caption {
+    padding: .5em 0;
+  }
+  
+  table.dataTable th,
+  table.dataTable td {
+    white-space: nowrap;
+  }
+ 
+  tr:hover{
+    background-color: #aaa4a4d4;
+  }
+  
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  .cabezaras{
+    background-color:#212529;
+    color:white;
+    font-size: small;
+    align-items: left;
+  }
+  
+  .id{
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    color: black;
+    border:5px, black;
+    background-color:#ffffff;
+  }
+
+  .links{
+    color: rgb(53, 54, 114);
+    text-decoration: underline rgb(4, 0, 255);
+  }
+  .noA{
+    background-color: rgb(233, 139, 139);
+  }
+  .recAlm{
+    background-color: rgb(139, 233, 156);
+  }
+  .recon{
+    background-color: rgb(233, 199, 139);
+  }
+
+
+
+
+ 

@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+
+<div class="navega card-header " *ngFor="let item of datatable">
+    </div>
+  
+   <div class=" card  text-center">
+    <div class="v2">
+      <div class="tarjeta navega card-header">
+       
+          <h5 class="card-title ">Datos Generales</h5>
+       
+      </div>
+    <div class="card-body" *ngFor="let item of datatable" >
+
+        
+      <p>
+        <p class="card-text">No. Solicitud: <b> {{item.id_solicitud}}</b></p>
+        <p class="card-text">Solicitante: <b> {{item.solicitante}}</b></p>
+        <p class="card-text">Fecha Solicitud: <b> {{item.fechaSolicitud}}</b></p>
+        <p class="card-text">Tipo Ticket: <b> {{item.tipoTicket}}</b></p>
+        <p class="card-text">Provedor: <b> {{item.provedor}}</b></p>
+        <p class="card-text">Motivo Salida: <b> {{item.motivo}}</b> </p>
+        <p class="card-text">Area: <b> {{item.area}}</b></p>
+        <p class="card-text">Descripción: <b> {{item.descripcion}}</b></p>
+        <p class="card-text">Observaciones: <b> {{item.observaciones}}</b></p>
+        <p class="card-text">Programado para: <b> {{item.regresa}}</b> </p>
+        <p class="card-text">Estatus Solicitud: <b> {{item.status2}}</b> </p>
+<p>
+        <button class="btn btn-outline-danger" collapse="ejemplo2" type="button" data-bs-toggle="collapse" data-bs-target="#ejemplo1" aria-expanded="false" parent="collapseExample" aria-controls="ejemplo2">
+            Autorizador
+           </button>
+           <button class="btn btn-outline-warning" type="button" data-bs-toggle="collapse" data-bs-target="#ejemplo2" aria-expanded="false" parent="collapseExample" aria-controls="ejemplo2">
+            Almacen
+           </button>
+           <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#ejemplo3" aria-expanded="false" parent="collapseExample" aria-controls="ejemplo2">
+            Compras
+           </button>
+        </p>
+    
+      <div class="collapse" id="ejemplo1">
+        <div class="card card-body">
+            <h6 class="card-title card-header ">Datos Autorizador</h6>
+            <p class="card-text">Autorizador: <b> {{item.autorizador}}</b> </p>
+            <p class="card-text">Comentarios: <b> {{item.comentariosAutorizador}}</b> </p>
+            <p class="card-text">Estatus: <b> {{item.statusAprobacion}}</b> </p>
+
+
+        </div> 
+      </div>
+
+      <div class="collapse" id="ejemplo2">
+        <div class="card card-body">
+            <h6 class="card-title card-header ">Datos Almacen</h6>
+            <p>Salida</p>
+            <p class="card-text">Fecha Salida: <b> {{item.autorizador}}</b> </p>
+            <p class="card-text">Quien Recibio: <b> {{item.nombreProvedor}}</b> </p>
+            <p>Regreso</p>
+            <p class="card-text">Fecha Regreso: <b> {{item.fechaRegreso}}</b> </p>
+            <p class="card-text">Comentarios Regreso: <b> {{item.comentariosRegreso}}</b> </p>
+        </div> 
+      </div> 
+
+      <div class="collapse" id="ejemplo3">
+        <div class="card card-body">
+            <h6 class="card-title card-header">Datos Compras</h6>
+            <p class="card-text">Fecha Compromiso: <b> {{item.fechaCompromiso}}</b> </p>
+            <p class="card-text">Comentarios: <b> {{item.comentariosCompras}}</b> </p>
+        </div> 
+      </div> 
+
+    </div>

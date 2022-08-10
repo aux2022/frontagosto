@@ -1,0 +1,42 @@
+
+
+  
+<br>
+
+ 
+ 
+<!--tabla nueva-->
+<div class="container">
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="serch input-group-text" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+    </div>
+    <input type="text" class=" form-control" aria-label="Small" id="search" placeholder="buscar un registro...">
+  </div>
+  <div class="table-responsive">
+    <table class="table" id="tblDatos">
+     
+        <thead>
+         
+          <tr >
+            <th class="id">id_solicitud</th>
+            <th class="cabezaras">Fecha de creación</th>
+            <th class="cabezaras">Detalles</th>
+            
+         
+          </tr>
+        </thead>
+      <tbody class="table table-bordered">
+        <tr *ngFor="let item of datatablecomen" style="width: 100%;">
+          
+          <td class="id"> {{ item.id_solicitud }}</td>
+          <td>{{ item.fecha }}</td>
+          <td>{{ item.mensajeHistorial }}</td>
+          
+       
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="paginador"></div>
+</div> 

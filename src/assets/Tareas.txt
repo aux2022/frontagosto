@@ -1,0 +1,23 @@
+por terminar modulo de vigilancia/-
+
+login modal en vigilancia para evitar errores al presionar/-
+
+en regreso tomar solo las aprovadas/-
+
+procedimiento almacenado que devuelva a los que ya seles dio salida y estan por regresar/-
+
+cambiar todas RUTAS web config **
+
+validar campos para almacen/-
+
+fechas regreso validar/-
+
+agregar una tarjeta para info de aceptar y rechazar, tambien para mostrar informacion
+
+
+
+login no accede de forma correcta
+
+en mostrar info las tablas estan desacomodadas******
+
+filtro por fechas **********
